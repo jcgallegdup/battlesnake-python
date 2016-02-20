@@ -13,12 +13,12 @@ snake_name = "onomatopoeia"
 
 #mySnake = {id' : "05d4b1a6-ce15-4298-abc1-2be9718d9c20", 'name' : "onomatopoeia", 'status' : 'alive',}
 
-'''
+
 def getTaunt():
     global taunts, counter
     counter += 1
     return(taunts[(counter%len(taunts)])
-'''
+
 
 @bottle.route('/static/<path:path>')
 def static(path):
@@ -47,7 +47,7 @@ def start():
 
     # response
     return {
-        'taunt': "taunting"
+        'taunt': getTaunt()
     }
 
 
@@ -60,7 +60,7 @@ def move():
     # response
     return {
         'move': 'north',
-        'taunt': "taunting"
+        'taunt': getTaunt()
     }
 
 

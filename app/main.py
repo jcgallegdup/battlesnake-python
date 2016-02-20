@@ -13,7 +13,8 @@ last_move = None
 
 counter = 0    # used in getTaunt()
 
-height = -1     # game board dim defined in index()
+# game board dim defined in index()
+height = -1     
 width = -1
 
 our_snake = None    # init in sort_snakes
@@ -85,6 +86,7 @@ def move():
     # get data
     data = bottle.request.json 
 
+    # call function to define 'our_snake' Snake object & 'enemies' Snake object list
     sort_snakes(data["snakes"])
 
     # find pos of our snake's head
@@ -100,13 +102,13 @@ def move():
     }
 
 def getOppositeDir(str):
-    if str == 'west': 
+    if str == 'west':
         return 'east'
-    elif str == 'east': 
+    elif str == 'east':
         return 'west'
-    elif str == 'south': 
+    elif str == 'south':
         return 'north'
-    else
+    else:
         return 'south'
 
 

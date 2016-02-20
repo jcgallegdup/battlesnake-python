@@ -116,6 +116,33 @@ def move():
     }
 
 
+def avoidWalls(coords, valid_moves):
+    global width, height
+
+    try:    
+        if coords[0] == width-1:
+            valid_moves.remove("east")
+    except:
+        pass
+    try:
+        if coords[0] == 0:
+            valid_moves.remove("west")
+    except:
+        pass
+    try:
+        if coords[1] == height-1:
+            valid_moves.remove("south")
+    except:
+        pass
+    try:
+        if coords[1] == 0:
+            valid_moves.remove("north") 
+    except:
+        pass
+
+    return valid_moves
+
+
 def getOppositeDir(str):
     if str == 'west':
         return 'east'

@@ -50,9 +50,17 @@ def start():
 
 @bottle.post('/move')
 def move():
-    data = bottle.request.json
+    data = bottle.request.json # get data
 
-    # TODO: Do things with data
+
+    snakeList = data["snakes"]
+    for s in snakeList:
+        if s["id"] == snake_id:
+            ourSnake = s
+            snakeList.remove(s)
+        print "snake" + s
+    
+    print "ours: " + ourSnake
 
     # response
     return {

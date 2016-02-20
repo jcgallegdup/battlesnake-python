@@ -78,9 +78,10 @@ def sort_snakes(snake_list):
 
 @bottle.post('/move')
 def move():
-    global our_snake
+    global our_snake, counter
 
     valid_moves = ['east', 'west', 'north', 'south']
+    turn_ctr = data["turn"]
 
     # ensure snake does not invert & kill itself
     if last_move != None: valid_moves.remove( getOppositeDir(last_move) )
@@ -97,7 +98,8 @@ def move():
 
 
     # selec random move out of valid
-    move = random.choice(valid_moves)
+    #move = random.choice(valid_moves)
+    move = valid_moves[ turn_ctr % len(valid_moves) ]
 
     last_move = move
     # response
@@ -105,6 +107,7 @@ def move():
         'move': move,
         'taunt': getTaunt()
     }
+
 
 def getOppositeDir(str):
     if str == 'west':

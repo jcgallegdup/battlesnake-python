@@ -53,7 +53,7 @@ def start():
 @bottle.post('/move')
 def move():
     global ourSnake
-    
+
     data = bottle.request.json # get data
 
     snakeList = data["snakes"]
@@ -61,9 +61,9 @@ def move():
         if s["id"] == snake_id:
             ourSnake = s
             snakeList.remove(s)
-        print "snake" + s
+        print "snake" + s["id"]
     
-    print "ours: " + ourSnake
+    print "ours: " + ourSnake["id"]
 
     # response
     return {

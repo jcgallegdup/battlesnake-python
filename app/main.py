@@ -95,18 +95,39 @@ def move():
     # find pos of our snake's head
     our_snake_head = our_snake['coords'][0]
 
+    # returns a potentially altered list of valid moves
+    valid_moves = avoidWalls(our_snake_head, valid_moves)
+
+
 
 
     # selec random move out of valid
-    #move = random.choice(valid_moves)
-    move = valid_moves[ turn_ctr % len(valid_moves) ]
+    move = random.choice(valid_moves)
+    #move = valid_moves[ turn_ctr % len(valid_moves) ]
 
     last_move = move
+
     # response
     return {
         'move': move,
         'taunt': getTaunt()
     }
+
+def avoidWalls(coords, valid_moves):
+    global height, width
+
+    if coords[0] == width-1 and valid_moves.contains("east"):
+        valid_moves.remove("east")
+    if coords[0] == 0 and valid_moves.contains("west"):
+        valid_moves.remove("west")
+    if coords[1] == height-1 and valid_moves.contains("south"):
+        valid_moves.remove("south")
+    if coords[1] == 0 and valid_moves.contains("north"):
+        valid_moves.remove("north") 
+        
+    return valid_moves
+
+
 
 
 def getOppositeDir(str):

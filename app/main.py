@@ -81,18 +81,14 @@ def move():
     # get data
     data = bottle.request.json
     # indicate scope of vars
-    global our_snake, counter
-
-    last_move = None
+    global our_snake, counter, last_move
     move = None
 
     valid_moves = ['east', 'west', 'north', 'south']
-    turn_ctr = data["turn"]
 
     # ensure snake does not invert & kill itself
-    if last_move != None: valid_moves.remove( getOppositeDir(last_move) )
-
- 
+    if last_move != None: 
+        valid_moves.remove( getOppositeDir(last_move) )
 
     # call function to define 'our_snake' Snake object & 'enemies' Snake object list
     sort_snakes(data["snakes"])
@@ -105,8 +101,7 @@ def move():
 
 
     # selec random move out of valid
-    #move = random.choice(valid_moves)
-    move = valid_moves[ turn_ctr % len(valid_moves) ]
+    move = random.choice( valid_moves )
 
     last_move = move
 

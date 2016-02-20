@@ -7,8 +7,6 @@ taunts = ["YOU'RE the silent killer",
           "you're the worst",
           "why are you the way that you are?"]
 
-all_moves = ['east', 'north', 'west', 'south']
-
 last_move = None
 
 counter = 0    # used in getTaunt()
@@ -80,8 +78,12 @@ def sort_snakes(snake_list):
 
 @bottle.post('/move')
 def move():
-    global our_snake, all_moves
-    move = None
+    global our_snake
+
+    valid_moves = ['east', 'west', 'north', 'south']
+
+    # ensure snake does not invert & kill itself
+    if last_move != None: valid_moves.remove( getOppositeDir(last_move) )
 
     # get data
     data = bottle.request.json 
@@ -92,13 +94,10 @@ def move():
     # find pos of our snake's head
     our_snake_head = our_snake['coords'][0]
 
-    # avoid moving 
-    while True: 
-        move = random.choice(all_moves)
-        # do not invert on oneself
-        if last_move == null or move == getOppositeDir(last_move):
-            break
-    
+
+
+    # selec random move out of valid
+    move = random.choice(valid_moves)
 
     # response
     return {

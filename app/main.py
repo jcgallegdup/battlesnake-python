@@ -44,7 +44,7 @@ def index():
 
     # response
     return {
-        'color': '#00ffff',
+        'color': '#ffffff',
         'head': head_url
     }
 
@@ -82,6 +82,9 @@ def move():
     data = bottle.request.json
     # indicate scope of vars
     global our_snake, counter
+
+    last_move = None
+    move = None
 
     valid_moves = ['east', 'west', 'north', 'south']
     turn_ctr = data["turn"]

@@ -93,7 +93,12 @@ def move():
     our_snake_head = our_snake['coords'][0]
 
     # avoid moving 
-    while(move == getOppositeDir(last_move)): move = random.choice(all_moves)
+    while True: 
+        move = random.choice(all_moves)
+        # do not invert on oneself
+        if last_move == null or move == getOppositeDir(last_move):
+            break
+    
 
     # response
     return {

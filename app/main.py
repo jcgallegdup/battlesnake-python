@@ -1,6 +1,11 @@
 import bottle
 import os
 
+taunts = ["YOU'RE the silent killer", 
+          "I hate so much about the things that you choose to be", 
+          "you're the worst",
+          "why are you the way that you are?"]
+
 
 @bottle.route('/static/<path:path>')
 def static(path):
@@ -14,7 +19,7 @@ def index():
         bottle.request.urlparts.netloc
     )
 
-    return = {
+    return {
         'color': '#00ffff',
         'head': head_url
     }

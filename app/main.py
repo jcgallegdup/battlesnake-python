@@ -80,7 +80,7 @@ def sort_snakes(snake_list):
 @bottle.post('/move')
 def move():
     global our_snake, all_moves
-    move = null
+    move = None
 
     # get data
     data = bottle.request.json 

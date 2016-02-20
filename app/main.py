@@ -99,6 +99,7 @@ def move():
     # selec random move out of valid
     move = random.choice(valid_moves)
 
+    last_move = move
     # response
     return {
         'move': move,

@@ -78,16 +78,18 @@ def sort_snakes(snake_list):
 
 @bottle.post('/move')
 def move():
+    # get data
+    data = bottle.request.json
+    # indicate scope of vars
     global our_snake, counter
 
     valid_moves = ['east', 'west', 'north', 'south']
-    turn_ctr = data["turn"]
+    turn_ctr = int(data["turn"])
 
     # ensure snake does not invert & kill itself
     if last_move != None: valid_moves.remove( getOppositeDir(last_move) )
 
-    # get data
-    data = bottle.request.json 
+ 
 
     # call function to define 'our_snake' Snake object & 'enemies' Snake object list
     sort_snakes(data["snakes"])
@@ -102,8 +104,8 @@ def move():
 
 
     # selec random move out of valid
-    move = random.choice(valid_moves)
-    #move = valid_moves[ turn_ctr % len(valid_moves) ]
+    #move = random.choice(valid_moves)
+    move = valid_moves[ turn_ctr % len(valid_moves) ]
 
     last_move = move
 
@@ -112,22 +114,6 @@ def move():
         'move': move,
         'taunt': getTaunt()
     }
-
-def avoidWalls(coords, valid_moves):
-    global height, width
-
-    if coords[0] == width-1 and valid_moves.contains("east"):
-        valid_moves.remove("east")
-    if coords[0] == 0 and valid_moves.contains("west"):
-        valid_moves.remove("west")
-    if coords[1] == height-1 and valid_moves.contains("south"):
-        valid_moves.remove("south")
-    if coords[1] == 0 and valid_moves.contains("north"):
-        valid_moves.remove("north") 
-        
-    return valid_moves
-
-
 
 
 def getOppositeDir(str):

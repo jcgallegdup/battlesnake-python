@@ -11,13 +11,10 @@ counter = 0
 snake_id = "05d4b1a6-ce15-4298-abc1-2be9718d9c20"
 snake_name = "onomatopoeia"
 
-#mySnake = {id' : "05d4b1a6-ce15-4298-abc1-2be9718d9c20", 'name' : "onomatopoeia", 'status' : 'alive',}
-
-
 def getTaunt():
     global taunts, counter
     counter += 1
-    return(taunts[(counter%len(taunts)])
+    return (taunts[counter%len(taunts)])
 
 
 @bottle.route('/static/<path:path>')

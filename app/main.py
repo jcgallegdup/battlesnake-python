@@ -17,8 +17,6 @@ width = -1
 
 our_snake = None    # init in sort_snakes
 
-enemies = []    # list of live enemy Snake Objects
-
 snake_id = "05d4b1a6-ce15-4298-abc1-2be9718d9c20"   # to find our snake from snake list
 
 snake_name = "onomatopoeia"
@@ -63,18 +61,6 @@ def start():
         'taunt': getTaunt()
     }
 
-# finds our snake & composes list of live enemies
-def sort_snakes(snake_list):
-    global our_snake, snake_id
-
-    # find our snake & keep list of all live enemies
-    for snake in snake_list:
-        if snake["id"] == snake_id:
-            our_snake = snake
-        # ignore dead snakes (remove from list)
-        elif snake["status"] == 'alive':
-            enemies.append(snake)
-
 
 @bottle.post('/move')
 def move():
@@ -90,7 +76,7 @@ def move():
     if last_move != None: 
         valid_moves.remove( getOppositeDir(last_move) )
 
-    # call function to define 'our_snake' Snake object & 'enemies' Snake object list
+    # call function to define 'our_snake' Snake object & 'all_live_snakes' Snake object list
     sort_snakes(data["snakes"])
 
     # find pos of our snake's head
@@ -99,6 +85,8 @@ def move():
     # returns a potentially altered list of valid moves
     valid_moves = avoidWalls(our_snake_head, valid_moves)
 
+    # returns a potentially altered list of valid moves
+    valid_moves = avoidSnakes(data["snakes"], our_snake_head, valid_moves)
 
     # selec random move out of valid
     move = random.choice( valid_moves )
@@ -137,6 +125,34 @@ def avoidWalls(coords, valid_moves):
         pass
 
     return valid_moves
+
+## input: List of Snakes and the coordinates of our snakes head and list of possible directions (in that order)
+def avoidSnakes(snakeList, ourHead, directions):
+    
+    for snake in snakeList:
+        for coords in snake["coords"]:
+            ##same x coordinates and they are right above/below us
+            try:
+                if ourHead[0] == coords[0] and ourHead[1] == coords[1]+1:
+                    directions.remove("north")
+            except:
+                pass
+            try:
+                if ourHead[0] == coords[0] and ourHead[1] == coords[1]-1:
+                    directions.remove("south")
+            except:
+                pass
+            try:
+                if ourHead[1] == coords[1] and ourHead[0] == coords[0]-1:
+                    directions.remove("east")
+            except:
+                pass
+            try:
+                if ourHead[1] == coords[0] and ourHead[0] == coords[0]+1:
+                    directions.remove("west")
+            except:
+                pass
+    return directions
 
 
 def getOppositeDir(str):

@@ -99,6 +99,12 @@ def move():
         'taunt': getTaunt()
     }
 
+def sort_snakes(snake_list):
+    global our_snake
+    for snake in snake_list:
+        if snake["id"] == snake_id:
+            our_snake = snake
+
 
 def avoidWalls(coords, valid_moves):
     global width, height

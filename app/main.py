@@ -1,10 +1,13 @@
 import bottle
 import os
+import random
 
 taunts = ["YOU'RE the silent killer", 
           "I hate so much about the things that you choose to be", 
           "you're the worst",
           "why are you the way that you are?"]
+
+moves = ['south', 'east', 'west']
 
 counter = 0
 
@@ -52,7 +55,7 @@ def start():
 
 @bottle.post('/move')
 def move():
-    global ourSnake
+    global ourSnake, moves
 
     data = bottle.request.json # get data
 
@@ -65,9 +68,11 @@ def move():
     
     #print "ours: " + ourSnake["id"]
 
+
+
     # response
     return {
-        'move': 'north',
+        'move': random.choice(moves),
         'taunt': getTaunt()
     }
 

@@ -76,6 +76,12 @@ def move():
     if last_move != None: 
         valid_moves.remove( getOppositeDir(last_move) )
 
+    if len(valid_moves) > 3:
+        return {
+            'move': 'north',
+            'taunt': 'oops'
+        }
+
     # call function to define 'our_snake' Snake object & 'all_live_snakes' Snake object list
     sort_snakes(data["snakes"])
 

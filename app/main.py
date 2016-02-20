@@ -14,8 +14,8 @@ def index():
         bottle.request.urlparts.netloc
     )
 
-    return {
-        'color': '#00ff00',
+    return = {
+        'color': '#00ffff',
         'head': head_url
     }
 

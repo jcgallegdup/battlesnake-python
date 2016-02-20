@@ -70,6 +70,8 @@ def move():
     global our_snake, counter, last_move
     move = None
 
+    print "HELLO THERE"
+
     valid_moves = ['east', 'west', 'north', 'south']
 
     # ensure snake does not invert & kill itself

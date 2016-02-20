@@ -101,8 +101,6 @@ def move():
     valid_moves = avoidWalls(our_snake_head, valid_moves)
 
 
-
-
     # selec random move out of valid
     #move = random.choice(valid_moves)
     move = valid_moves[ turn_ctr % len(valid_moves) ]

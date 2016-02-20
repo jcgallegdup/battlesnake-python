@@ -61,9 +61,9 @@ def move():
         if s["id"] == snake_id:
             ourSnake = s
             snakeList.remove(s)
-        print "snake" + s["id"]
+        #print "snake" + s["id"]
     
-    print "ours: " + ourSnake["id"]
+    #print "ours: " + ourSnake["id"]
 
     # response
     return {

@@ -6,6 +6,19 @@ taunts = ["YOU'RE the silent killer",
           "you're the worst",
           "why are you the way that you are?"]
 
+counter = 0
+
+snake_id = "05d4b1a6-ce15-4298-abc1-2be9718d9c20"
+snake_name = "onomatopoeia"
+
+#mySnake = {id' : "05d4b1a6-ce15-4298-abc1-2be9718d9c20", 'name' : "onomatopoeia", 'status' : 'alive',}
+
+
+def getTaunt():
+    global counter
+    counter += 1
+    return(taunts[(counter%len(taunts)])
+
 
 @bottle.route('/static/<path:path>')
 def static(path):
@@ -32,7 +45,7 @@ def start():
     # TODO: Do things with data
 
     return {
-        'taunt': 'battlesnake-python!'
+        'taunt': getTaunt()
     }
 
 
@@ -44,7 +57,7 @@ def move():
 
     return {
         'move': 'north',
-        'taunt': 'battlesnake-python!'
+        'taunt': getTaunt()
     }
 
 
@@ -52,11 +65,8 @@ def move():
 def end():
     data = bottle.request.json
 
-    # TODO: Do things with data
-
-    return {
-        'taunt': 'battlesnake-python!'
-    }
+    # game over
+    return {}
 
 
 # Expose WSGI app (so gunicorn can find it)

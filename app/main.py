@@ -7,14 +7,23 @@ taunts = ["YOU'RE the silent killer",
           "you're the worst",
           "why are you the way that you are?"]
 
-moves = ['south', 'east', 'west']
+all_moves = ['east', 'north', 'west', 'south']
 
-counter = 0
+last_move = None
 
-ourSnake = None
+counter = 0    # used in getTaunt()
 
-snake_id = "05d4b1a6-ce15-4298-abc1-2be9718d9c20"
+height = -1     # game board dim defined in index()
+width = -1
+
+our_snake = None    # init in sort_snakes
+
+enemies = []    # list of live enemy Snake Objects
+
+snake_id = "05d4b1a6-ce15-4298-abc1-2be9718d9c20"   # to find our snake from snake list
+
 snake_name = "onomatopoeia"
+
 
 def getTaunt():
     global taunts, counter
@@ -45,36 +54,60 @@ def index():
 def start():
     data = bottle.request.json
 
-    # TODO: Do things with data
+    global height, width
+
+    height = data["height"]
+    width = data["width"]
 
     # response
     return {
         'taunt': getTaunt()
     }
+
+# finds our snake & composes list of live enemies
+def sort_snakes(snake_list):
+    global our_snake, snake_id
+
+    # find our snake & keep list of all live enemies
+    for snake in snake_list:
+        if snake["id"] == snake_id:
+            our_snake = snake
+        # ignore dead snakes (remove from list)
+        elif snake["status"] == 'alive':
+            enemies.append(snake)
 
 
 @bottle.post('/move')
 def move():
-    global ourSnake, moves
+    global our_snake, all_moves
+    move = null
 
-    data = bottle.request.json # get data
+    # get data
+    data = bottle.request.json 
 
-    snakeList = data["snakes"]
-    for s in snakeList:
-        if s["id"] == snake_id:
-            ourSnake = s
-            snakeList.remove(s)
-        #print "snake" + s["id"]
-    
-    #print "ours: " + ourSnake["id"]
+    sort_snakes(data["snakes"])
 
+    # find pos of our snake's head
+    our_snake_head = our_snake['coords'][0]
 
+    # avoid moving 
+    while(move == getOppositeDir(last_move)): move = random.choice(all_moves)
 
     # response
     return {
-        'move': random.choice(moves),
+        'move': move,
         'taunt': getTaunt()
     }
+
+def getOppositeDir(str):
+    if str == 'west': 
+        return 'east'
+    elif str == 'east': 
+        return 'west'
+    elif str == 'south': 
+        return 'north'
+    else
+        return 'south'
 
 
 @bottle.post('/end')

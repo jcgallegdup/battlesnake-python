@@ -8,6 +8,8 @@ taunts = ["YOU'RE the silent killer",
 
 counter = 0
 
+ourSnake = None
+
 snake_id = "05d4b1a6-ce15-4298-abc1-2be9718d9c20"
 snake_name = "onomatopoeia"
 
@@ -50,8 +52,9 @@ def start():
 
 @bottle.post('/move')
 def move():
+    global ourSnake
+    
     data = bottle.request.json # get data
-
 
     snakeList = data["snakes"]
     for s in snakeList:

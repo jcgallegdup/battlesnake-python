@@ -67,7 +67,7 @@ def move():
     # indicate scope of vars
     global our_snake, counter
 
-    valid_moves = ['east', 'west', 'north', 'south']
+    valid_moves = ['east', 'north', 'south', 'west']
 
     print "**********************"
     print "turn #", str(data["turn"])

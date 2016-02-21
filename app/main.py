@@ -72,6 +72,9 @@ def move():
 
     valid_moves = ['east', 'west', 'north', 'south']
 
+    print "**********************"
+    print "turn #", str(data["turn"])
+
     # ensure snake does not invert & kill itself
     if last_move != None: 
         valid_moves.remove( getOppositeDir(last_move) )
@@ -107,6 +110,8 @@ def move():
     move = random.choice( valid_moves )
 
     last_move = move
+
+    print "**********************"
 
     # response
     return {

@@ -81,7 +81,10 @@ def move():
     print "last choice:", last_move
 
     if last_move != None:
+        # this move is no good
         valid_moves.remove(last_move)
+        # if possible, we would like to continue moving in the same direction
+        valid_moves.insert(0, valid_moves.remove(getOppositeDir(last_move)))
 
     # find pos of our snake's head
     our_snake_head = our_snake['coords'][0]
@@ -100,8 +103,12 @@ def move():
 
     print "after avoid snakes ", valid_moves
 
-    # selec random move out of valid
-    move = random.choice( valid_moves )
+
+    # look for food
+
+
+    # select 1st i.e. highest priority element
+    move = valid_moves[0]
 
     print "we chose", move
     print "**********************"
@@ -147,6 +154,9 @@ def avoidWalls(coords, valid_moves):
 ## input: List of Snakes and the coordinates of our snakes head and list of possible directions (in that order)
 def avoidSnakes(snakeList, ourHead, directions):
     
+    if len(directions) == 1:
+        return directions
+
     for snake in snakeList:
         for coords in snake["coords"]:
             ##same x coordinates and they are right above/below us

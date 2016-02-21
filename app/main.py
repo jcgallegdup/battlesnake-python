@@ -84,7 +84,9 @@ def move():
         # this move is no good
         valid_moves.remove(last_move)
         # if possible, we would like to continue moving in the same direction
-        valid_moves.insert(0, valid_moves.remove(getOppositeDir(last_move)))
+        print getOppositeDir(last_move)
+        if valid_moves.remove(getOppositeDir(last_move)):
+            valid_moves.insert(0, valid_moves.remove(getOppositeDir(last_move)))
 
     # find pos of our snake's head
     our_snake_head = our_snake['coords'][0]
@@ -118,6 +120,23 @@ def move():
         'move': move,
         'taunt': getTaunt()
     }
+
+
+def coinChoice(foodlist, ourHead):
+    foodDirects = []
+    for f in foodlist:
+        if f[0] == ourHead[0]:
+            if f[0] < ourHead[0]: ## go left
+                foodDirects.append("west")
+            else:
+                foodDirects.append("east")
+        if f[1] == ourHead[1]:
+            if f[1] < ourHead[1]: ## go update
+                foodDirects.append("north")
+            else:
+                foodDirects.append("south")
+    
+    return foodDirects
 
 def findLastMove(coordslist):
 

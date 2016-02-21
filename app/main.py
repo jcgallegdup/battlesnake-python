@@ -133,14 +133,14 @@ def coinChoice(foodlist, ourHead):
     for f in foodlist:
         if f[0] == ourHead[0]:
             if f[0] < ourHead[0]: ## go left
-                foodDirects.append("west")
-            else:
-                foodDirects.append("east")
-        if f[1] == ourHead[1]:
-            if f[1] < ourHead[1]: ## go update
                 foodDirects.append("north")
             else:
                 foodDirects.append("south")
+        if f[1] == ourHead[1]:
+            if f[1] < ourHead[1]: ## go update
+                foodDirects.append("west")
+            else:
+                foodDirects.append("east")
     
     return foodDirects
 

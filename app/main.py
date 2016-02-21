@@ -68,7 +68,6 @@ def move():
     data = bottle.request.json
     # indicate scope of vars
     global our_snake, counter, last_move
-    move = None
 
     valid_moves = ['east', 'west', 'north', 'south']
 

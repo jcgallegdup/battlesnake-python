@@ -158,7 +158,6 @@ def avoidSnakes(snakeList, ourHead, directions):
                 directions.remove("east")
             if ourHead[1] == coords[0] and ourHead[0] == coords[0]+1 and "west" in directions:
                 directions.remove("west")
-            except:
     return directions
 
 

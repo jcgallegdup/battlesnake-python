@@ -70,8 +70,6 @@ def move():
     global our_snake, counter, last_move
     move = None
 
-    print "HELLO THERE"
-
     valid_moves = ['east', 'west', 'north', 'south']
 
     # ensure snake does not invert & kill itself
@@ -90,11 +88,20 @@ def move():
     # find pos of our snake's head
     our_snake_head = our_snake['coords'][0]
 
+
+    print "initial list ", valid_moves
+
+
     # returns a potentially altered list of valid moves
     valid_moves = avoidWalls(our_snake_head, valid_moves)
 
+
+    print "after avoid walls ", valid_moves
+
     # returns a potentially altered list of valid moves
     valid_moves = avoidSnakes(data["snakes"], our_snake_head, valid_moves)
+
+    print "after avoid snakes ", valid_moves
 
     # selec random move out of valid
     move = random.choice( valid_moves )
@@ -118,7 +125,7 @@ def avoidWalls(coords, valid_moves):
     global width, height
 
     try:    
-        if coords[0] == width-1:
+        if coords[0] >= width-1:
             valid_moves.remove("east")
     except:
         pass
@@ -128,7 +135,7 @@ def avoidWalls(coords, valid_moves):
     except:
         pass
     try:
-        if coords[1] == height-1:
+        if coords[1] >= height-1:
             valid_moves.remove("south")
     except:
         pass

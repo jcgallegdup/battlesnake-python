@@ -84,8 +84,9 @@ def move():
         # this move is no good
         valid_moves.remove(getOppositeDir(last_move))
         # if possible, we would like to continue moving in the same direction
-        if valid_moves.remove((last_move)):
-            valid_moves.insert(0, valid_moves.remove((last_move)))
+        nice = valid_moves.remove((last_move))
+        if nice:
+            valid_moves.insert(0, nice)
 
     # find pos of our snake's head
     our_snake_head = our_snake['coords'][0]

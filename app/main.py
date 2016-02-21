@@ -110,7 +110,8 @@ def move():
 
     move = valid_moves[0]
 
-    if foodList:
+    if foodList != None:
+        print foodList
         for f in foodList:
             if f in valid_moves:
                 move = f

@@ -82,7 +82,7 @@ def move():
 
     if last_move != None and last_move in valid_moves:
         # this move is no good
-        valid_moves.remove(getOppositeDirection(last_move))
+        valid_moves.remove(getOppositeDir(last_move))
         # if possible, we would like to continue moving in the same direction
         if valid_moves.remove((last_move)):
             valid_moves.insert(0, valid_moves.remove((last_move)))
@@ -106,10 +106,17 @@ def move():
 
 
     # look for food
+    foodList = coinChoice(data["food"], our_snake_head)
 
+    if foodList:
+        for f in foodList:
+            if f in valid_moves:
+                move = f
+                break
+    else:
+        # select 1st i.e. highest priority element
+        move = valid_moves[0]
 
-    # select 1st i.e. highest priority element
-    move = valid_moves[0]
 
     print "we chose", move
     print "**********************"

@@ -7,8 +7,6 @@ taunts = ["YOU'RE the silent killer",
           "you're the worst",
           "why are you the way that you are?"]
 
-last_move = None
-
 counter = 0    # used in getTaunt()
 
 # game board dim defined in index()
@@ -67,26 +65,12 @@ def move():
     # get data
     data = bottle.request.json
     # indicate scope of vars
-    global our_snake, counter, last_move
+    global our_snake, counter
 
     valid_moves = ['east', 'west', 'north', 'south']
 
     print "**********************"
     print "turn #", str(data["turn"])
-
-    print "last move", last_move
-
-'''
-    # ensure snake does not invert & kill itself
-    if last_move != None: 
-        valid_moves.remove( getOppositeDir(last_move) )
-
-        if len(valid_moves) > 3:
-            return {
-                'move': 'north',
-                'taunt': 'oops'
-            }
-'''
 
     # call function to define 'our_snake' Snake object & 'all_live_snakes' Snake object list
     sort_snakes(data["snakes"])
@@ -96,7 +80,6 @@ def move():
 
     # find pos of our snake's head
     our_snake_head = our_snake['coords'][0]
-
 
     print "initial list ", valid_moves
 
@@ -114,8 +97,6 @@ def move():
 
     # selec random move out of valid
     move = random.choice( valid_moves )
-
-    last_move = move
 
     print "we chose", move
     print "**********************"

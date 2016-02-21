@@ -108,14 +108,13 @@ def move():
     # look for food
     foodList = coinChoice(data["food"], our_snake_head)
 
+    move = valid_moves[0]
+
     if foodList:
         for f in foodList:
             if f in valid_moves:
                 move = f
                 break
-    else:
-        # select 1st i.e. highest priority element
-        move = valid_moves[0]
 
 
     print "we chose", move

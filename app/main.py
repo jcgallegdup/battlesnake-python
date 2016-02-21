@@ -80,13 +80,12 @@ def move():
 
     print "last choice:", last_move
 
-    if last_move != None:
+    if last_move != None and last_move in valid_moves:
         # this move is no good
-        valid_moves.remove(last_move)
+        valid_moves.remove(getOppositeDirection(last_move))
         # if possible, we would like to continue moving in the same direction
-        print getOppositeDir(last_move)
-        if valid_moves.remove(getOppositeDir(last_move)):
-            valid_moves.insert(0, valid_moves.remove(getOppositeDir(last_move)))
+        if valid_moves.remove((last_move)):
+            valid_moves.insert(0, valid_moves.remove((last_move)))
 
     # find pos of our snake's head
     our_snake_head = our_snake['coords'][0]

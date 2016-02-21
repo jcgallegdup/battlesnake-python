@@ -76,7 +76,11 @@ def move():
     sort_snakes(data["snakes"])
 
     # prevent inverting on itself
-    valid_moves.remove(findLastMove(our_snake['coords']))
+    last_move = findLastMove(our_snake['coords'])
+
+    print "last choice:", last_move
+
+    valid_moves.remove(last_move)
 
     # find pos of our snake's head
     our_snake_head = our_snake['coords'][0]
@@ -108,6 +112,7 @@ def move():
     }
 
 def findLastMove(coordslist):
+
     if coordslist[1][0] > coordslist[0][0]:
         return "east"
     if coordslist[1][0] < coordslist[0][0]:

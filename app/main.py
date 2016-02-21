@@ -76,6 +76,7 @@ def move():
 
     print "last move", last_move
 
+'''
     # ensure snake does not invert & kill itself
     if last_move != None: 
         valid_moves.remove( getOppositeDir(last_move) )
@@ -85,9 +86,13 @@ def move():
                 'move': 'north',
                 'taunt': 'oops'
             }
+'''
 
     # call function to define 'our_snake' Snake object & 'all_live_snakes' Snake object list
     sort_snakes(data["snakes"])
+
+    # prevent inverting on itself
+    valid_moves.remove(findLastMove(our_snake['coords']))
 
     # find pos of our snake's head
     our_snake_head = our_snake['coords'][0]
@@ -120,6 +125,16 @@ def move():
         'move': move,
         'taunt': getTaunt()
     }
+
+def findLastMove(coordslist):
+    if coordslist[1][0] > coordslist[0][0]:
+        return "east"
+    if coordslist[1][0] < coordslist[0][0]:
+        return "west"
+    if coordslist[1][1] > coordslist[0][1]:
+        return "north"
+    if coordslist[1][1] < coordslist[0][1]: 
+        return "south"
 
 def sort_snakes(snake_list):
     global our_snake

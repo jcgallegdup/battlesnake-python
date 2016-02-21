@@ -80,7 +80,8 @@ def move():
 
     print "last choice:", last_move
 
-    valid_moves.remove(last_move)
+    if last_move != None:
+        valid_moves.remove(last_move)
 
     # find pos of our snake's head
     our_snake_head = our_snake['coords'][0]
@@ -114,9 +115,9 @@ def move():
 def findLastMove(coordslist):
 
     if coordslist[1][0] > coordslist[0][0]:
-        return "east"
-    if coordslist[1][0] < coordslist[0][0]:
         return "west"
+    if coordslist[1][0] < coordslist[0][0]:
+        return "east"
     if coordslist[1][1] > coordslist[0][1]:
         return "north"
     if coordslist[1][1] < coordslist[0][1]: 
@@ -131,27 +132,15 @@ def sort_snakes(snake_list):
 
 def avoidWalls(coords, valid_moves):
     global width, height
-
-    try:    
-        if coords[0] >= width-1:
-            valid_moves.remove("east")
-    except:
-        pass
-    try:
-        if coords[0] == 0:
-            valid_moves.remove("west")
-    except:
-        pass
-    try:
-        if coords[1] >= height-1:
-            valid_moves.remove("south")
-    except:
-        pass
-    try:
-        if coords[1] == 0:
-            valid_moves.remove("north") 
-    except:
-        pass
+ 
+    if coords[0] >= width-1 and "east" in valid_moves:
+        valid_moves.remove("east")
+    if coords[0] == 0 and "west" in valid_moves:
+        valid_moves.remove("west")
+    if coords[1] >= height-1 and "south" in valid_moves:
+        valid_moves.remove("south")
+    if coords[1] == 0 and "north" in valid_moves:
+        valid_moves.remove("north") 
 
     return valid_moves
 
@@ -161,26 +150,15 @@ def avoidSnakes(snakeList, ourHead, directions):
     for snake in snakeList:
         for coords in snake["coords"]:
             ##same x coordinates and they are right above/below us
-            try:
-                if ourHead[0] == coords[0] and ourHead[1] == coords[1]+1:
-                    directions.remove("north")
+            if ourHead[0] == coords[0] and ourHead[1] == coords[1]+1 and "north" in directions:
+                directions.remove("north")
+            if ourHead[0] == coords[0] and ourHead[1] == coords[1]-1 and "south" in directions:
+                directions.remove("south")
+            if ourHead[1] == coords[1] and ourHead[0] == coords[0]-1 and "east" in directions:
+                directions.remove("east")
+            if ourHead[1] == coords[0] and ourHead[0] == coords[0]+1 and "west" in directions:
+                directions.remove("west")
             except:
-                pass
-            try:
-                if ourHead[0] == coords[0] and ourHead[1] == coords[1]-1:
-                    directions.remove("south")
-            except:
-                pass
-            try:
-                if ourHead[1] == coords[1] and ourHead[0] == coords[0]-1:
-                    directions.remove("east")
-            except:
-                pass
-            try:
-                if ourHead[1] == coords[0] and ourHead[0] == coords[0]+1:
-                    directions.remove("west")
-            except:
-                pass
     return directions
 
 
